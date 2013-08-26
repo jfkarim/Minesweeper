@@ -39,7 +39,8 @@ class Board
 
     board_string = row_strings.join("\n")
 
-    puts board_string.gsub(/m/,"*")
+    drawing_board = board_string.gsub(/m/,"*")
+    puts drawing_board.gsub(/x/, "F")
   end
 
 end

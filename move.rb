@@ -54,7 +54,7 @@ class Move
       new_row, new_col = neighbor.first, neighbor.last
       check_square = board_arr[new_row][new_col]
 
-      if check_square == 'm'
+      if check_square == 'm' || check_square == 'x'
         adj_mine_count += 1
       end
     end
@@ -96,6 +96,10 @@ class Move
       board_arr[row][col] = "F"
     elsif board_arr[row][col] == "F"
       board_arr[row][col] = "*"
+    elsif board_arr[row][col] == 'm'
+      board_arr[row][col] = "x"
+    elsif board_arr[row][col] == 'x'
+      board_arr[row][col] = 'm'
     end
   end
 
