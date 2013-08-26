@@ -23,9 +23,20 @@ class Minesweeper
   end
 
   def calc_avg_time
-    total_time = 0.0
-    time_array.each { |time| total_time += time}
-    total_time / wins
+    total = 0.0
+    time_array.each { |time| total += time}
+    total / wins
+  end
+
+  def high_scores
+    current_high_scores = YAML::load_file("high_scores.txt")
+    current_high_scores = [] unless current_high_scores
+    new_high_scores = current_high_scores.push([@total_time, user.name])
+    new_high_scores.sort!
+    yaml = new_high_scores.to_yaml
+    File.open("high_scores.txt", "w") do |file|
+      file.puts yaml
+    end
   end
 
   def size_of_board
@@ -66,12 +77,13 @@ class Minesweeper
       end
     end
     puts "#{user.name}, you WIN!!"
-    wins += 1
+    self.wins += 1
     @total_time = Time.now - @start_time
     time_array << @total_time
-    puts "Time taken to finish: #{total_time} seconds"
-    puts "Average time to win: #{calc_avg_time} after #{wins} wins this session"
+    puts "Time taken to finish: #{@total_time} seconds"
+    puts "Average time to win: #{calc_avg_time.round(2)} after #{wins} wins this session"
     puts "But you still lost #{games_played - wins} times...LOSER!! LOSER I SAY!!"
+    high_scores
     true
   end
 
@@ -132,6 +144,7 @@ class Minesweeper
 
   def play
     @start_time = Time.now
+    @games_played += 1
     show_board
 
     loop do
