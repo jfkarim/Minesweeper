@@ -26,7 +26,7 @@ class Move
     row, col = move_coords
     current_square = board_arr[row][col]
 
-    raise "game over" if current_square == 'm' #for now
+    return 'lose' if current_square == 'm' #for now
 
     # leave this for now, must do a check through all neighboring squares
 
@@ -41,6 +41,8 @@ class Move
     end
 
   end
+
+
 
   def adjacent_mines
     row, col = move_coords

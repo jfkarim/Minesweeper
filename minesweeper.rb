@@ -55,6 +55,15 @@ class Minesweeper
     true
   end
 
+  def lose?(new_move, move_input)
+    if new_move.reveal == 'lose' && move_input[0] == 'r'
+      puts "#{user.name}, you lose!!! LOSER!!"
+      return true
+    end
+    false
+  end
+
+
   def save_game
     yaml = game_board.to_yaml
     puts "Save under what name?"
@@ -90,20 +99,24 @@ class Minesweeper
   end
 
   def play
+    start = Time.now
     show_board
 
     loop do
 
       move_input = user.move
       new_move = Move.new(move_input, game_board, board_dimension)
-      p game_board
+      p game_board #optional (for dev use)
       show_board
       update_flag_count
       break if win?
+      break if lose?(new_move, move_input)
       save?
 
     end
 
+    total_time = Time.now - start
+    puts "Time taken to finish: #{total_time}"
   end
 end
 
