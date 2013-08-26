@@ -8,7 +8,7 @@ class Board
   end
 
   def mine_initialize(dimension)
-
+    # will hide mines
     mine_positions = []
 
     if dimension == 9
