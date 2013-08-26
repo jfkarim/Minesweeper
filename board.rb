@@ -13,7 +13,7 @@ class Board
     mine_positions = []
 
     if dimension == 9
-      until mine_positions.length == 1 #10
+      until mine_positions.length == 10
         row = (0...9).to_a.sample
         col = (0...9).to_a.sample
         mine_positions << [row, col] unless board[row][col] == 'm'

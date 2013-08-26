@@ -152,7 +152,6 @@ class Minesweeper
       move_input = user.move
       new_move = Move.new(move_input, game_board, board_dimension)
 
-      p game_board #optional (for dev use)
       show_board
       update_flag_count
 
