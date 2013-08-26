@@ -1,11 +1,15 @@
 require_relative "board.rb"
+require_relative "move.rb"
+require_relative "user.rb"
+
 
 class Minesweeper
-  attr_accessor :game_board, :user
+  attr_accessor :game_board, :user, :board_dimension
 
   def initialize
     self.game_board = Board.new(size_of_board)
     self.user = User.new
+    self.board_dimension = size_of_board
   end
 
   def size_of_board
@@ -15,18 +19,19 @@ class Minesweeper
   end
 
   def show_board
-    puts game_board # may need more detail
+    game_board.draw_board # may need more detail
   end
 
   def play
+    show_board
+
     loop do
-      show_board
 
-      # make move
       move_input = user.move
-      new_move = Move.new(move_input)
-
+      new_move = Move.new(move_input, game_board, board_dimension)
+      p game_board
       show_board
     end
+
   end
 end

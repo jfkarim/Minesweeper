@@ -1,8 +1,9 @@
 class Board
-  attr_accessor :board
+  attr_accessor :board, :dimension
 
   def initialize(dimension)
     self.board = []
+    self.dimension = dimension
     dimension.times { board << Array.new(dimension, '*'.dup) }
     mines = mine_initialize(dimension)
   end
@@ -28,6 +29,17 @@ class Board
     end
 
     mine_positions
+  end
+
+  def draw_board
+    row_strings = []
+    board.each do |row|
+      row_strings << row.join("")
+    end
+
+    board_string = row_strings.join("\n")
+
+    puts board_string.gsub(/m/,"*")
   end
 
 end
