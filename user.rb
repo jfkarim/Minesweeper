@@ -32,7 +32,7 @@ class User
       puts "Please enter coordinates separated by comma."
 
       coords = gets.chomp.split(",")
-      return coords.map! { |el| el.to_i } unless coords.length != 2
+      return coords.map! { |el| el.to_i - 1 } unless coords.length != 2
       puts "Invalid move"
     end
 
