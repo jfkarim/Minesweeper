@@ -13,19 +13,30 @@ class User
   end
 
   def move
-    puts "Would you like to reveal or flag this turn? (Enter r or f)"
-    answer = gets.chomp.downcase[0]
+    answer = ""
+
+    loop do
+      puts "Would you like to reveal or flag this turn? (Enter r or f)"
+      answer = gets.chomp.downcase[0]
+      break if answer == "r" || answer == "f"
+    end
 
     coords = get_coords
     [answer, coords]
 
-      # error handling needed
   end
 
   def get_coords
-    puts "Please enter coordinates separated by comma."
+    coords = []
+    loop do
+      puts "Please enter coordinates separated by comma."
 
-    gets.chomp.split(",")
+      coords = gets.chomp.split(",")
+      return coords.map! { |el| el.to_i } unless coords.length != 2
+      puts "Invalid move"
+    end
+
+    coords
   end
 
 end
