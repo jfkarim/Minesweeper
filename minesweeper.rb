@@ -94,6 +94,18 @@ class Minesweeper
     end
   end
 
+  def play_again?
+    puts "Play Again, #{user.name}? (y/n)"
+    answer = gets.chomp.downcase[0]
+    if answer == 'y'
+      self.game_board = Board.new(size_of_board)
+      self.board_dimension = game_board.dimension
+      play
+    else
+      puts "Don't want to play again? Fine.\n Good-Bye...loser."
+    end
+  end
+
   def show_board
     game_board.draw_board
   end
@@ -106,9 +118,11 @@ class Minesweeper
 
       move_input = user.move
       new_move = Move.new(move_input, game_board, board_dimension)
+
       p game_board #optional (for dev use)
       show_board
       update_flag_count
+
       break if win?
       break if lose?(new_move, move_input)
       save?
@@ -116,7 +130,8 @@ class Minesweeper
     end
 
     total_time = Time.now - start
-    puts "Time taken to finish: #{total_time}"
+    puts "Time taken to finish: #{total_time} seconds"
+    play_again?
   end
 end
 
