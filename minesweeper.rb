@@ -5,13 +5,27 @@ require "yaml"
 
 
 class Minesweeper
-  attr_accessor :game_board, :user, :board_dimension, :flag_count
+  attr_accessor :game_board, :user, :board_dimension,
+                :flag_count, :games_played, :wins, :time_array
 
   def initialize
     load?
     self.game_board = Board.new(size_of_board) if self.game_board.nil?
     self.user = User.new
     self.board_dimension = game_board.dimension
+    stats_initialize
+  end
+
+  def stats_initialize
+    self.games_played = 0
+    self.wins = 0
+    self.time_array = []
+  end
+
+  def calc_avg_time
+    total_time = 0.0
+    time_array.each { |time| total_time += time}
+    total_time / wins
   end
 
   def size_of_board
@@ -52,6 +66,12 @@ class Minesweeper
       end
     end
     puts "#{user.name}, you WIN!!"
+    wins += 1
+    @total_time = Time.now - @start_time
+    time_array << @total_time
+    puts "Time taken to finish: #{total_time} seconds"
+    puts "Average time to win: #{calc_avg_time} after #{wins} wins this session"
+    puts "But you still lost #{games_played - wins} times...LOSER!! LOSER I SAY!!"
     true
   end
 
@@ -111,7 +131,7 @@ class Minesweeper
   end
 
   def play
-    start = Time.now
+    @start_time = Time.now
     show_board
 
     loop do
@@ -129,8 +149,6 @@ class Minesweeper
 
     end
 
-    total_time = Time.now - start
-    puts "Time taken to finish: #{total_time} seconds"
     play_again?
   end
 end

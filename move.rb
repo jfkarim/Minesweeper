@@ -3,7 +3,8 @@ class Move
   NEIGHBOR_INCREMENTS = [[1,1], [1,0], [1,-1], [0,1], [0,-1],
                [-1,1], [-1,0], [-1,-1]]
 
-  attr_accessor :move_type, :move_coords, :board, :dimension, :dimension_range, :board_arr
+  attr_accessor :move_type, :move_coords, :board, :dimension,
+                :dimension_range, :board_arr
 
   def initialize(move_input, board, dimension)
     self.move_type = move_input.first
